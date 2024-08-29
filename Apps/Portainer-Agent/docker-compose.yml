@@ -4,7 +4,7 @@ name: portainer-agent
 services:
   portainer-agent:
     container_name: portainer-agent
-    image: portainer/agent:2.18.4  # :latest would also match in this case, since there are no static files
+    image: portainer/agent:latest  # :latest would also match in this case, since there are no static files
     labels:
       icon: https://raw.githubusercontent.com/mr-manuel/CasaOS-HomeAutomation-AppStore/latest/Apps/Portainer-Agent/icon.png
       traefik.enable: false

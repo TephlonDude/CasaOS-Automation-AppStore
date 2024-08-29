@@ -27,7 +27,7 @@ services:
           echo "done."
         fi
         traefik'
-    image: traefik:2.10
+    image: traefik:v2.11
     labels:
       icon: https://raw.githubusercontent.com/mr-manuel/CasaOS-HomeAutomation-AppStore/latest/Apps/Traefik-v2/icon.png
     network_mode: bridge

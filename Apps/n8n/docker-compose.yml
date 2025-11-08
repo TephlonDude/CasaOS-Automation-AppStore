@@ -3,7 +3,7 @@ version: "3.8"
 x-casaos:
   title: "n8n"
   description: "Open-source workflow automation: connect apps, APIs, and data with a visual builder."
-  icon: "https://raw.githubusercontent.com/n8n-io/n8n/master/assets/n8n-logo.png"
+  icon: "https://cdn.jsdelivr.net/gh/selfhst/icons/svg/n8n.svg"
   category: "Automation & AI"
   architectures:
     - amd64
@@ -17,7 +17,7 @@ x-casaos:
 services:
   n8n:
     container_name: n8n
-    image: n8nio/n8n:latest
+    image: n8nio/n8n:1.119.0
     restart: unless-stopped
     ports:
       - "5678:5678"

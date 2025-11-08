@@ -1,0 +1,56 @@
+version: "3.8"
+
+x-casaos:
+  title: "n8n"
+  description: "Open-source workflow automation: connect apps, APIs, and data with a visual builder."
+  icon: "https://raw.githubusercontent.com/n8n-io/n8n/master/assets/n8n-logo.png"
+  category: "Automation & AI"
+  architectures:
+    - amd64
+    - arm64
+  author: "Jason McFeetors"
+  developer: "n8n GmbH"
+  homepage: "https://n8n.io"
+  main: "n8n"
+  port_map: "5678"
+
+services:
+  n8n:
+    container_name: n8n
+    image: n8nio/n8n:latest
+    restart: unless-stopped
+    ports:
+      - "5678:5678"
+    environment:
+      # --- Security / auth ---
+      - N8N_BASIC_AUTH_ACTIVE=true
+      - N8N_BASIC_AUTH_USER=admin
+      - N8N_BASIC_AUTH_PASSWORD=changeme
+
+      # --- Runtime / URLs ---
+      - GENERIC_TIMEZONE=America/Edmonton
+      - N8N_HOST=localhost
+      - N8N_PORT=5678
+      - N8N_PROTOCOL=http
+      # If you expose through a reverse proxy with a public DNS name, set WEBHOOK_URL accordingly:
+      # - WEBHOOK_URL=https://n8n.example.com/
+
+      # --- Database (SQLite by default, simple & reliable for homelab) ---
+      - DB_TYPE=sqlite
+      - DB_SQLITE_VACUUM_ON_STARTUP=true
+
+      # --- Telemetry/privacy ---
+      - N8N_DIAGNOSTICS_ENABLED=false
+      - N8N_PERSONALIZATION_ENABLED=false
+      - N8N_VERSION_NOTIFICATIONS_ENABLED=true
+
+    volumes:
+      # Persist workflows, credentials, and config
+      - /DATA/AppData/n8n:/home/node/.n8n
+
+    healthcheck:
+      test: ["CMD", "node", "-e", "require('http').get('http://127.0.0.1:5678', r=>process.exit(r.statusCode===200?0:1)).on('error',()=>process.exit(1))"]
+      interval: 30s
+      timeout: 5s
+      retries: 5
+      start_period: 20s

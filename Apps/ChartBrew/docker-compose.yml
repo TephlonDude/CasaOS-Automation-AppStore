@@ -1,0 +1,93 @@
+version: "3.8"
+
+x-casaos:
+  title: "ChartBrew"
+  description: "Open-source charts & dashboards. Connect to DBs/APIs and build real-time visualizations."
+  icon: "https://raw.githubusercontent.com/chartbrew/chartbrew/main/client/public/logo192.png"
+  category: "Analytics & Dashboards"
+  architectures: [amd64, arm64]
+  author: "Jason McFeetors"
+  developer: "ChartBrew"
+  homepage: "https://chartbrew.com"
+  main: "chartbrew"
+  port_map: "4018"
+
+services:
+  chartbrew:
+    image: chartbrew/chartbrew:latest
+    container_name: chartbrew
+    restart: unless-stopped
+    depends_on:
+      mysql:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    environment:
+      # ── App ────────────────────────────────────────────────────────────────────
+      - NODE_ENV=production
+      - PORT=4018
+      # ── MySQL ─────────────────────────────────────────────────────────────────
+      - CB_DB_TYPE=mysql
+      - CB_DB_HOST=mysql
+      - CB_DB_PORT=3306
+      - CB_DB_NAME=chartbrew
+      - CB_DB_USER=chartbrew
+      - CB_DB_PASS=${CB_DB_PASS:-changeme-db}
+      # ── Redis (caching/queues) ────────────────────────────────────────────────
+      - REDIS_URL=redis://:${REDIS_PASSWORD:-changeme-redis}@redis:6379/0
+      # ── Session/crypto ────────────────────────────────────────────────────────
+      - CB_SECRET=${CB_SECRET:-changeme-secret}
+    ports:
+      - "4018:4018"
+    networks:
+      - chartbrew-net
+    healthcheck:
+      test: ["CMD", "wget", "-qO", "-", "http://127.0.0.1:4018/health || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 5
+      start_period: 25s
+
+  mysql:
+    image: mysql:8.0
+    container_name: chartbrew-mysql
+    command: --default-authentication-plugin=mysql_native_password --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    restart: unless-stopped
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD:-changeme-root}
+      - MYSQL_DATABASE=chartbrew
+      - MYSQL_USER=chartbrew
+      - MYSQL_PASSWORD=${CB_DB_PASS:-changeme-db}
+    volumes:
+      - /DATA/AppData/chartbrew/mysql:/var/lib/mysql
+    networks:
+      - chartbrew-net
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -u$$MYSQL_USER -p$$MYSQL_PASSWORD --silent"]
+      interval: 20s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+
+  redis:
+    image: redis:7-alpine
+    container_name: chartbrew-redis
+    restart: unless-stopped
+    command: >
+      sh -c "exec redis-server --appendonly yes --requirepass $$REDIS_PASSWORD"
+    environment:
+      - REDIS_PASSWORD=${REDIS_PASSWORD:-changeme-redis}
+    volumes:
+      - /DATA/AppData/chartbrew/redis:/data
+    networks:
+      - chartbrew-net
+    healthcheck:
+      test: ["CMD", "redis-cli", "-a", "${REDIS_PASSWORD:-changeme-redis}", "ping"]
+      interval: 20s
+      timeout: 5s
+      retries: 10
+      start_period: 15s
+
+networks:
+  chartbrew-net:
+    driver: bridge

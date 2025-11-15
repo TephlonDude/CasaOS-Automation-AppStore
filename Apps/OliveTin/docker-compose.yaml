@@ -1,0 +1,61 @@
+name: OliveTin
+services:
+  olivetin:
+    cpu_shares: 90
+    command: []
+    container_name: OliveTin
+    deploy:
+      resources:
+        limits:
+          memory: 7848M
+    hostname: OliveTin
+    # Allow pinning the image via OLIVETIN_IMAGE in an .env file (recommended)
+    image: ${OLIVETIN_IMAGE:-jamesread/olivetin:latest}
+    labels:
+      icon: https://cdn.jsdelivr.net/gh/selfhst/icons/svg/olivetin.svg
+    ports:
+      - target: 1337
+        published: "1337"
+        protocol: tcp
+    privileged: true
+    restart: unless-stopped
+    healthcheck:
+      # Simple HTTP check against the service port; tries wget then curl
+      test: ["CMD-SHELL", "wget -qO - http://127.0.0.1:1337/ || curl -fsS http://127.0.0.1:1337/ || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+    volumes:
+      - type: bind
+        source: /DATA/AppData/olivetin/config
+        target: /config
+      - type: bind
+        source: /var/run/docker.sock
+        target: /var/run/docker.sock
+      - type: bind
+        source: /DATA/Media
+        target: /DATA/Media
+      - type: bind
+        source: /DATA/AppData/olivetin/scripts
+        target: /scripts
+      - type: bind
+        source: /DATA/Downloads
+        target: /DATA/Downloads
+    devices: []
+    cap_add: []
+    environment: []
+    network_mode: bridge
+x-casaos:
+  author: self
+  category: self
+  hostname: ""
+  icon: https://cdn.jsdelivr.net/gh/selfhst/icons/svg/olivetin.svg
+  index: /
+  is_uncontrolled: false
+  port_map: "1337"
+  scheme: http
+  store_app_id: OliveTin
+  title:
+    custom: Olive Tin
+    en_us: olivetin

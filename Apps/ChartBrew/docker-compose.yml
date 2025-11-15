@@ -1,4 +1,4 @@
-version: "3.8"
+
 
 x-casaos:
   title: "ChartBrew"
@@ -14,7 +14,8 @@ x-casaos:
 
 services:
   chartbrew:
-    image: chartbrew/chartbrew:latest
+    # Pin the image to a stable ChartBrew release for predictable updates
+    image: chartbrew/chartbrew:v4.6.0
     container_name: chartbrew
     restart: unless-stopped
     depends_on:
@@ -39,10 +40,14 @@ services:
       - CB_SECRET=${CB_SECRET:-changeme-secret}
     ports:
       - "4018:4018"
+    volumes:
+      # Persist app files, uploads, and SQLite database if used
+      - /DATA/AppData/chartbrew:/app
     networks:
       - chartbrew-net
     healthcheck:
-      test: ["CMD", "wget", "-qO", "-", "http://127.0.0.1:4018/health || exit 1"]
+      # Use a shell which attempts wget then curl to improve portability in images
+      test: ["CMD-SHELL", "wget -qO - http://127.0.0.1:4018/health || curl -fsS http://127.0.0.1:4018/health || exit 1"]
       interval: 30s
       timeout: 5s
       retries: 5
@@ -82,7 +87,9 @@ services:
     networks:
       - chartbrew-net
     healthcheck:
-      test: ["CMD", "redis-cli", "-a", "${REDIS_PASSWORD:-changeme-redis}", "ping"]
+      # Use the runtime env value inside the container (`$$REDIS_PASSWORD`) so the
+      # healthcheck runs with the same password the service uses at runtime.
+      test: ["CMD-SHELL", "redis-cli -a '$$REDIS_PASSWORD' ping || exit 1"]
       interval: 20s
       timeout: 5s
       retries: 10

@@ -1,0 +1,15 @@
+# Sample docker-compose.override.yml for CasaOS users.
+# Copy to docker-compose.override.yml to use (this is optional).
+
+version: "3.8"
+
+services:
+  chartbrew:
+    # Example: switch to SQLite instead of MySQL for a lightweight local setup
+    environment:
+      - CB_DB_TYPE=sqlite
+      - CB_SQLITE_FILENAME=/app/sqlite/chartbrew.db
+    # Example: set a label to let a reverse proxy identify the app
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.chartbrew.rule=Host(`chartbrew.localhost`)"

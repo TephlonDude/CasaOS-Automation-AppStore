@@ -63,6 +63,21 @@ The first user to sign up becomes the admin account.
   For production dashboards, connect to **MySQL** or **PostgreSQL** for better performance.  
 - Combine with **n8n** to automatically feed ChartBrew dashboards with live automation data.  
 - Use CasaOS backups to persist `/DATA/AppData/chartbrew`.  
+ - Ensure the application files are persisted by mounting `/DATA/AppData/chartbrew:/app` in your `docker-compose.yml` so SQLite and uploads survive container restarts.
+ - Consider pinning the ChartBrew image version (avoid `latest`) to prevent unexpected upgrades.
+ - Consider pinning the ChartBrew image version (avoid `latest`) to prevent unexpected upgrades. This repo's compose now pins to `chartbrew/chartbrew:v4.6.0`.
+ - You can set values via a `.env` file: copy `.env.sample` to `.env` and update secrets there. For example:
+
+   ```pwsh
+   cp .env.sample .env
+   # then edit .env to set strong values for CB_ENCRYPTION_KEY and CB_SECRET
+   ```
+ - If you prefer an alternate runtime config, see `docker-compose.override.yml.sample` for examples (SQLite, reverse-proxy labels, etc.).
+ - In production, generate secure keys for `CB_ENCRYPTION_KEY` and `CB_SECRET`. Example:
+
+  ```pwsh
+  node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
+  ```
 - Expose it securely through a reverse proxy if you need external access.
 
 ---

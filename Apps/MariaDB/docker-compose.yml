@@ -25,7 +25,10 @@ services:
             en_us: specify a timezone to use, see this list.
         - container: MYSQL_ROOT_PASSWORD
           description:
-            en_us: Set this to root password for installation (minimum 4 characters & non-alphanumeric passwords must be properly escaped).
+            
+  fallback_images:
+    - ""
+en_us: Set this to root password for installation (minimum 4 characters & non-alphanumeric passwords must be properly escaped).
         - container: MYSQL_DATABASE
           description:
             en_us: Specify the name of a database to be created on image startup.

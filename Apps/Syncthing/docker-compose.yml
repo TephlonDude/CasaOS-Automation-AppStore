@@ -63,7 +63,10 @@ services:
             zh_cn: Syncthing监听端口（UDP）
           protocol: udp
         - container: "21027"
-          description:
+    
+  fallback_images:
+    - ""
+      description:
             en_us: Syncthing protocol discovery Port (TCP)
             zh_cn: Syncthing协议发现端口（TCP）
           protocol: udp

@@ -11,6 +11,8 @@ x-casaos:
   homepage: "https://chartbrew.com"
   main: "chartbrew"
   port_map: "4018"
+  fallback_images:
+    - "${CHARTBREW_FALLBACK_IMAGE:-chartbrew/chartbrew:latest}"
   tips:
     - "Backup Data: Regularly back up \/DATA/AppData/chartbrew\ to protect your configuration and data"
     - "Logs: Monitor application logs via the CasaOS app management UI to troubleshoot issues"

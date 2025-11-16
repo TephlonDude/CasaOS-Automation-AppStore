@@ -163,4 +163,6 @@ x-casaos:
     en_us: Gitea
   index: /
   port_map: "3002"
+  fallback_images:
+    - "${GITEA_FALLBACK_IMAGE:-gitea/gitea:latest}"
 

@@ -9,6 +9,8 @@
   homepage: "https://quickchart.io"
   main: "quickchart"
   port_map: "3400"
+  fallback_images:
+    - "${QUICKCHART_FALLBACK_IMAGE:-ghcr.io/typpo/quickchart:latest}"
   tips:
     - "Backup Data: Regularly back up \/DATA/AppData/quickchart\ to protect your configuration and data"
     - "Logs: Monitor application logs via the CasaOS app management UI to troubleshoot issues"

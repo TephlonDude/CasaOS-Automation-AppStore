@@ -16,6 +16,9 @@
     - "Integration: Explore integrations with other CasaOS apps to enhance functionality"
     - "Updates: Check for updates regularly through the CasaOS AppStore to get bug fixes and new features"
 
+  fallback_images:
+    - ""
+
 services:
   metabase:
     image: ${METABASE_IMAGE:-metabase/metabase:latest}

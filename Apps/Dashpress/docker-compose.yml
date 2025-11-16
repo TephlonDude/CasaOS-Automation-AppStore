@@ -9,6 +9,8 @@
   homepage: "https://dashpress.io"
   main: "dashpress"
   port_map: "3000"
+  fallback_images:
+    - "${DASHPRESS_FALLBACK_IMAGE:-dashpresshq/dashpress:latest}"
   tips:
     - "Backup Data: Regularly back up \/DATA/AppData/dashpress\ to protect your configuration and data"
     - "Logs: Monitor application logs via the CasaOS app management UI to troubleshoot issues"

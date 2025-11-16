@@ -1,4 +1,4 @@
-x-casaos:
+﻿x-casaos:
   title: "Apprise API"
   description: "Notification API wrapper for Apprise — expose a simple HTTP API for notifications"
   icon: "https://selfh.st/icons/Apprise%20API.svg"
@@ -8,6 +8,9 @@ x-casaos:
   homepage: "https://github.com/caronc/apprise-api"
   main: "apprise-api"
   port_map: "8000"
+
+  fallback_images:
+    - ""
 
 services:
   apprise-api:

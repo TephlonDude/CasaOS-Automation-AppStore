@@ -8,6 +8,8 @@ x-casaos:
   homepage: "https://www.duplicati.com"
   main: "duplicati"
   port_map: "8200"
+  fallback_images:
+    - "${DUPLICATI_FALLBACK_IMAGE:-duplicati/duplicati:latest}"
 
 services:
   duplicati:

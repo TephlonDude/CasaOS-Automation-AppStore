@@ -9,6 +9,8 @@
   homepage: "https://redis.io"
   main: "redis"
   port_map: "6379"
+  fallback_images:
+    - "${REDIS_FALLBACK_IMAGE:-redis:7-alpine}"
   tips:
     - "Backup Data: Regularly back up \/DATA/AppData/redis\ to protect your configuration and data"
     - "Logs: Monitor application logs via the CasaOS app management UI to troubleshoot issues"

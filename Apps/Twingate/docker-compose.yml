@@ -51,7 +51,10 @@ x-casaos:
     - arm64
     - arm
   main: twingate-connector
-  author: Shubhankar Trivedi
+  author:
+  fallback_images:
+    - ""
+ Shubhankar Trivedi
   category: Network
   description: 
     en_us: It's a connector for Twingate".

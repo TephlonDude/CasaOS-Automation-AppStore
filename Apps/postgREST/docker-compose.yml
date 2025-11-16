@@ -9,6 +9,8 @@
   homepage: "https://postgrest.org"
   main: "postgrest"
   port_map: "3000"
+  fallback_images:
+    - "${POSTGREST_FALLBACK_IMAGE:-postgrest/postgrest:latest}"
   tips:
     - "Backup Data: Regularly back up \/DATA/AppData/postgrest\ to protect your configuration and data"
     - "Logs: Monitor application logs via the CasaOS app management UI to troubleshoot issues"

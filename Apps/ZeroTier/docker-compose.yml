@@ -1,4 +1,4 @@
-x-casaos:
+﻿x-casaos:
   title: "ZeroTier One"
   description: "ZeroTier One client for creating virtual networks across devices"
   icon: "https://selfh.st/icons/ZeroTier.svg"
@@ -8,6 +8,9 @@ x-casaos:
   homepage: "https://www.zerotier.com"
   main: "zerotier-one"
   port_map: "9993"
+
+  fallback_images:
+    - ""
 
 services:
   zerotier:

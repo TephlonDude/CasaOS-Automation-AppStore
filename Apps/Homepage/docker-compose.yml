@@ -9,6 +9,8 @@
   homepage: "https://gethomepage.dev"
   main: "homepage"
   port_map: "3000"
+  fallback_images:
+    - "${HOMEPAGE_FALLBACK_IMAGE:-gethomepage/homepage:latest}"
   tips:
     - "Backup Data: Regularly back up \/DATA/AppData/homepage\ to protect your configuration and data"
     - "Logs: Monitor application logs via the CasaOS app management UI to troubleshoot issues"

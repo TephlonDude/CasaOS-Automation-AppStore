@@ -41,7 +41,10 @@ services:
     ports:
       - target: 5432
         published: "5432"
-        protocol: tcp
+        protocol: t
+  fallback_images:
+    - ""
+cp
     volumes:
       - type: bind
         source: /DATA/AppData/postgresql/data

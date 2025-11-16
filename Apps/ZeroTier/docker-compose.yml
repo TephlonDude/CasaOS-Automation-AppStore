@@ -1,0 +1,35 @@
+x-casaos:
+  title: "ZeroTier One"
+  description: "ZeroTier One client for creating virtual networks across devices"
+  icon: "https://selfh.st/icons/ZeroTier.svg"
+  category: "Networking"
+  architectures: [amd64, arm64]
+  author: "CasaOS Community"
+  homepage: "https://www.zerotier.com"
+  main: "zerotier-one"
+  port_map: "9993"
+
+services:
+  zerotier:
+    image: zerotier/zerotier:latest
+    container_name: zerotier
+    restart: unless-stopped
+    cap_add:
+      - NET_ADMIN
+    environment:
+      - ZT_NETWORK_ID=${ZT_NETWORK_ID:-}
+    volumes:
+      - /DATA/AppData/zerotier:/var/lib/zerotier-one
+    ports:
+      - "9993:9993/udp"
+    networks:
+      - zerotier-net
+    healthcheck:
+      test: ["CMD-SHELL", "ps aux | grep zerotier || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+networks:
+  zerotier-net:
+    driver: bridge

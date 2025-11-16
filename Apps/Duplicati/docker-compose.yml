@@ -1,0 +1,37 @@
+x-casaos:
+  title: "Duplicati"
+  description: "Encrypted, incremental backup client for local and cloud storage"
+  icon: "https://selfh.st/icons/Duplicati.svg"
+  category: "Backups"
+  architectures: [amd64, arm64]
+  author: "CasaOS Community"
+  homepage: "https://www.duplicati.com"
+  main: "duplicati"
+  port_map: "8200"
+
+services:
+  duplicati:
+    image: duplicati/duplicati:2.0.6.3_beta_2021-01-24
+    container_name: duplicati
+    restart: unless-stopped
+    environment:
+      - PUID=${PUID:-1000}
+      - PGID=${PGID:-1000}
+      - TZ=${TZ:-UTC}
+      - DUPLICATI_ADMIN_PASSWORD=${DUPLICATI_ADMIN_PASSWORD:-REPLACE_WITH_SECURE_PASSWORD}
+    ports:
+      - "8200:8200"
+    volumes:
+      - /DATA/AppData/duplicati:/config
+      - /DATA/Backups:/backups
+    networks:
+      - duplicati-net
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO - http://127.0.0.1:8200/ || curl -fsS http://127.0.0.1:8200/ || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+networks:
+  duplicati-net:
+    driver: bridge

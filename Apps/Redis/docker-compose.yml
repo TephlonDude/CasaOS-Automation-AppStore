@@ -1,0 +1,30 @@
+x-casaos:
+  title: "Redis"
+  description: "In-memory data structure store. High-performance caching and session store."
+  icon: "https://selfh.st/icons/Redis.svg"
+  category: "Databases"
+  architectures: [amd64, arm64]
+  author: "CasaOS"
+  developer: "Redis"
+  homepage: "https://redis.io"
+  main: "redis"
+  port_map: "6379"
+
+services:
+  redis:
+    image: ${REDIS_IMAGE:-redis:latest}
+    container_name: redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    command: redis-server --appendonly yes --requirepass ${REDIS_PASSWORD:-REPLACE_WITH_SECURE_PASSWORD}
+    volumes:
+      - /DATA/AppData/redis:/data
+    healthcheck:
+      test: ["CMD-SHELL", "redis-cli -a $$REDIS_PASSWORD ping || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+    environment:
+      - REDIS_PASSWORD=${REDIS_PASSWORD:-REPLACE_WITH_SECURE_PASSWORD}

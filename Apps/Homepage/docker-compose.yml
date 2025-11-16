@@ -1,0 +1,27 @@
+x-casaos:
+  title: "Homepage"
+  description: "A highly customizable homepage for your homelab. Start page for your dashboard."
+  icon: "https://selfh.st/icons/Homepage.svg"
+  category: "Networking & Web"
+  architectures: [amd64, arm64]
+  author: "CasaOS"
+  developer: "Homepage"
+  homepage: "https://gethomepage.dev"
+  main: "homepage"
+  port_map: "3000"
+
+services:
+  homepage:
+    image: ${HOMEPAGE_IMAGE:-ghcr.io/gethomepage/homepage:latest}
+    container_name: homepage
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    volumes:
+      - /DATA/AppData/homepage:/app/config
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO - http://127.0.0.1:3000 || curl -fsS http://127.0.0.1:3000 || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 5
+      start_period: 20s

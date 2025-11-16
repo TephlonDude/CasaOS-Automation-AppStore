@@ -1,0 +1,30 @@
+x-casaos:
+  title: "WUD"
+  description: "What's Up Docker - Container update monitor. Track new versions of container images."
+  icon: "https://selfh.st/icons/WUD.svg"
+  category: "Developer Tools"
+  architectures: [amd64, arm64]
+  author: "CasaOS"
+  developer: "WUD"
+  homepage: "https://www.wud.dev"
+  main: "wud"
+  port_map: "3000"
+
+services:
+  wud:
+    image: ${WUD_IMAGE:-getwud/wud:latest}
+    container_name: wud
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /DATA/AppData/wud:/data
+    environment:
+      - WUD_LOG_LEVEL=info
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO - http://127.0.0.1:3000 || curl -fsS http://127.0.0.1:3000 || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 5
+      start_period: 20s

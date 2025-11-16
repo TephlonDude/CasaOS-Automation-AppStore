@@ -3,7 +3,7 @@
 x-casaos:
   title: "ChartBrew"
   description: "Open-source charts & dashboards. Connect to DBs/APIs and build real-time visualizations."
-  icon: "https://raw.githubusercontent.com/chartbrew/chartbrew/main/client/public/logo192.png"
+  icon: "https://selfh.st/icons/ChartBrew.svg"
   category: "Analytics & Dashboards"
   architectures: [amd64, arm64]
   author: "Jason McFeetors"
@@ -33,11 +33,11 @@ services:
       - CB_DB_PORT=3306
       - CB_DB_NAME=chartbrew
       - CB_DB_USER=chartbrew
-      - CB_DB_PASS=${CB_DB_PASS:-changeme-db}
+      - CB_DB_PASS=${CB_DB_PASS:-REPLACE_WITH_SECURE_PASSWORD}
       # ── Redis (caching/queues) ────────────────────────────────────────────────
-      - REDIS_URL=redis://:${REDIS_PASSWORD:-changeme-redis}@redis:6379/0
+      - REDIS_URL=redis://:${REDIS_PASSWORD:-REPLACE_WITH_SECURE_PASSWORD}@redis:6379/0
       # ── Session/crypto ────────────────────────────────────────────────────────
-      - CB_SECRET=${CB_SECRET:-changeme-secret}
+      - CB_SECRET=${CB_SECRET:-REPLACE_WITH_SECURE_PASSWORD}
     ports:
       - "4018:4018"
     volumes:
@@ -59,10 +59,10 @@ services:
     command: --default-authentication-plugin=mysql_native_password --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
     restart: unless-stopped
     environment:
-      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD:-changeme-root}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD:-REPLACE_WITH_SECURE_PASSWORD}
       - MYSQL_DATABASE=chartbrew
       - MYSQL_USER=chartbrew
-      - MYSQL_PASSWORD=${CB_DB_PASS:-changeme-db}
+      - MYSQL_PASSWORD=${CB_DB_PASS:-REPLACE_WITH_SECURE_PASSWORD}
     volumes:
       - /DATA/AppData/chartbrew/mysql:/var/lib/mysql
     networks:
@@ -81,7 +81,7 @@ services:
     command: >
       sh -c "exec redis-server --appendonly yes --requirepass $$REDIS_PASSWORD"
     environment:
-      - REDIS_PASSWORD=${REDIS_PASSWORD:-changeme-redis}
+      - REDIS_PASSWORD=${REDIS_PASSWORD:-REPLACE_WITH_SECURE_PASSWORD}
     volumes:
       - /DATA/AppData/chartbrew/redis:/data
     networks:

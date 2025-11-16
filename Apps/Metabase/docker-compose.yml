@@ -1,0 +1,29 @@
+x-casaos:
+  title: "Metabase"
+  description: "Open-source business intelligence and data visualization. Interactive dashboards from SQL."
+  icon: "https://selfh.st/icons/Metabase.svg"
+  category: "Analytics & Dashboards"
+  architectures: [amd64, arm64]
+  author: "CasaOS"
+  developer: "Metabase"
+  homepage: "https://www.metabase.com"
+  main: "metabase"
+  port_map: "3000"
+
+services:
+  metabase:
+    image: ${METABASE_IMAGE:-metabase/metabase:latest}
+    container_name: metabase
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - METABASE_DB_FILE=/app/data/metabase.db
+    volumes:
+      - /DATA/AppData/metabase:/app/data
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO - http://127.0.0.1:3000 || curl -fsS http://127.0.0.1:3000 || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 5
+      start_period: 30s

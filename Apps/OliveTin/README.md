@@ -35,7 +35,7 @@ Pinning the image to a tag or digest is strongly recommended to avoid unexpected
 **Security**
 - Mounting `/var/run/docker.sock` gives the container effective root control over the Docker host. Only enable it if Olive Tin requires Docker API access.
 - `privileged: true` is present in the compose by default (historical). That grants broad permissions and increases risk. Recommended actions:
-  - Preferred: keep the Docker socket mount and remove `privileged: true` (the compose can run without `privileged` in most Docker-socket use cases).
+  - Preferred: keep the Docker socket mount and remove `privileged: true` (the compose can run without `privileged` in most Docker-socket use cases). This compose now removes `privileged: true` by default and keeps the socket mount — you can add `cap_add` if you find a specific capability is required.
   - If possible, run without the Docker socket and without `privileged` for stronger isolation.
   - If a specific capability is required, prefer `cap_add` with a minimal set instead of `privileged`.
 

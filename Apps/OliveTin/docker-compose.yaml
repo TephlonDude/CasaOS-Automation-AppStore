@@ -12,12 +12,14 @@ services:
     # Allow pinning the image via OLIVETIN_IMAGE in an .env file (recommended)
     image: ${OLIVETIN_IMAGE:-jamesread/olivetin:latest}
     labels:
-      icon: https://cdn.jsdelivr.net/gh/selfhst/icons/svg/olivetin.svg
+      icon: https://selfh.st/icons/OliveTin.svg
     ports:
       - target: 1337
         published: "1337"
         protocol: tcp
-    privileged: true
+    # `privileged` removed for safer defaults. The Docker socket is still mounted
+    # at `/var/run/docker.sock` for features that require Docker API access.
+    # If additional capabilities are needed, consider adding a minimal `cap_add` set.
     restart: unless-stopped
     healthcheck:
       # Simple HTTP check against the service port; tries wget then curl
@@ -50,7 +52,7 @@ x-casaos:
   author: self
   category: self
   hostname: ""
-  icon: https://cdn.jsdelivr.net/gh/selfhst/icons/svg/olivetin.svg
+  icon: https://selfh.st/icons/OliveTin.svg
   index: /
   is_uncontrolled: false
   port_map: "1337"

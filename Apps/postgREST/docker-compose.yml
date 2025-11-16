@@ -1,0 +1,41 @@
+x-casaos:
+  title: "PostgREST"
+  description: "Instant REST API from PostgreSQL. Auto-generated API from your database schema."
+  icon: "https://selfh.st/icons/postgREST.svg"
+  category: "Developer Tools"
+  architectures: [amd64, arm64]
+  author: "CasaOS"
+  developer: "PostgREST"
+  homepage: "https://postgrest.org"
+  main: "postgrest"
+  port_map: "3000"
+
+services:
+  postgrest:
+    image: ${POSTGREST_IMAGE:-postgrest/postgrest:latest}
+    container_name: postgrest
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - PGRST_DB_URI=postgres://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-REPLACE_WITH_SECURE_PASSWORD}@${POSTGRES_HOST:-postgres}:5432/${POSTGRES_DB:-postgres}
+      - PGRST_DB_ANON_ROLE=anon
+    depends_on:
+      - postgres
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO - http://127.0.0.1:3000/openapi.json || curl -fsS http://127.0.0.1:3000/openapi.json || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+
+  postgres:
+    image: postgres:latest
+    container_name: postgrest-db
+    restart: unless-stopped
+    environment:
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-REPLACE_WITH_SECURE_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB:-postgres}
+      - POSTGRES_USER=${POSTGRES_USER:-postgres}
+    volumes:
+      - /DATA/AppData/postgrest-db:/var/lib/postgresql/data

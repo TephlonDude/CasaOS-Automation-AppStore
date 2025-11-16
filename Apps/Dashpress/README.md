@@ -1,30 +1,60 @@
-# DashPress for CasaOS
+# Dashpress for CasaOS
 
-DashPress is an open-source, no-code admin dashboard and data analytics platform. Self-host internal tools quickly without coding.
+Comprehensive data management and visualization tool for your database
 
-**Features**
-- Admin dashboard for databases
-- No-code internal tools and dashboards
-- User authentication and role-based access
-- REST API support
-- Works with multiple database backends
+## 🚀 Features
 
-**Ports**
-- **Container:** `3000`
-- **Host:** `3000`
+- Automatic CRUD interfaces from database schema
+- Customizable dashboards
+- Real-time data updates
+- Role-based access control
+- Data validation and workflows
+- API generation from database
 
-**Volumes**
-- `/DATA/AppData/dashpress:/app/data` - Persistent app data
+## 🛠️ Setup on CasaOS
 
-**Quick Start**
+**Port Mapping**
+- Dashpress listens on port \$(System.Collections.Hashtable.MainPort)\ inside the container
+- Mapped to host port \$(System.Collections.Hashtable.MainPort)\ (configurable in compose file)
 
-```pwsh
-cp .\Apps\Dashpress\.env.sample .\Apps\Dashpress\.env
-docker compose -f .\Apps\Dashpress\docker-compose.yml up -d
-```
+**Persistent Storage**
+- Data is stored at \/DATA/AppData/dashpress\ on your CasaOS host
+- Configure via volume mount in \docker-compose.yml\
+- Ensure this directory has sufficient permissions and storage space
 
-Access at `http://<CASAOS-IP>:3000`
+**Environment Configuration**
 
-**Resources**
-- [Official Website](https://dashpress.io)
-- [GitHub](https://github.com/dashpresshq/dashpress)
+- `DATABASE_URL - PostgreSQL or other database connection string`
+
+## 🌐 Access & Integration
+
+**In CasaOS UI:**
+- Add the application from the Automation AppStore
+- Configure environment variables and ports as needed
+- Start the service; it will begin running and be accessible on the mapped port
+
+**For Other Apps:**
+- Other CasaOS services can reference this app using its container name on the internal network
+- Services deployed in the same compose file or network can communicate directly
+
+## 💡 Tips
+
+- **Backup Data:** Regularly back up \/DATA/AppData/dashpress\ to protect your configuration and data
+- **Logs:** Monitor application logs via the CasaOS app management UI to troubleshoot issues
+- **Performance:** Allocate sufficient resources (CPU/memory) through CasaOS settings for optimal performance
+- **Integration:** Explore integrations with other CasaOS apps to enhance functionality
+- **Updates:** Check for updates regularly through the CasaOS AppStore to get bug fixes and new features
+
+## 📚 Resources
+
+- [https://dashpress.io](https://dashpress.io)
+- [https://dashpress.io/docs](https://dashpress.io/docs)
+- [https://github.com/dashpresshq/dashpress](https://github.com/dashpresshq/dashpress)
+
+---
+
+**Category:** Applications  
+**Maintainer:** CasaOS Community  
+**License:** See individual app licensing information  
+
+For support, please refer to the official documentation or community forums linked above.

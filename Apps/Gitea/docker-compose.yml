@@ -1,4 +1,4 @@
-name: gitea
+﻿name: gitea
 services:
   gitea:
     environment:

@@ -1,4 +1,4 @@
-x-casaos:
+﻿x-casaos:
   title: "WUD"
   description: "What's Up Docker - Container update monitor. Track new versions of container images."
   icon: "https://selfh.st/icons/WUD.svg"
@@ -9,6 +9,12 @@ x-casaos:
   homepage: "https://www.wud.dev"
   main: "wud"
   port_map: "3000"
+  tips:
+    - "Backup Data: Regularly back up \/DATA/AppData/wud\ to protect your configuration and data"
+    - "Logs: Monitor application logs via the CasaOS app management UI to troubleshoot issues"
+    - "Performance: Allocate sufficient resources (CPU/memory) through CasaOS settings for optimal performance"
+    - "Integration: Explore integrations with other CasaOS apps to enhance functionality"
+    - "Updates: Check for updates regularly through the CasaOS AppStore to get bug fixes and new features"
 
 services:
   wud:

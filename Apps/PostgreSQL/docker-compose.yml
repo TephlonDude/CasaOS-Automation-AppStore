@@ -1,4 +1,4 @@
-name: postgresql
+﻿name: postgresql
 services:
   postgresql:
     environment:

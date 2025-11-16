@@ -1,4 +1,4 @@
-name: syncthing
+﻿name: syncthing
 services:
   syncthing:
     environment:

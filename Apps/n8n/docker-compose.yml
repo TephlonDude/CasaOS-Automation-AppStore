@@ -1,4 +1,4 @@
-version: "3.8"
+﻿version: "3.8"
 
 x-casaos:
   title: "n8n"
@@ -13,6 +13,12 @@ x-casaos:
   homepage: "https://n8n.io"
   main: "n8n"
   port_map: "5678"
+  tips:
+    - "Backup Data: Regularly back up \/DATA/AppData/n8n\ to protect your configuration and data"
+    - "Logs: Monitor application logs via the CasaOS app management UI to troubleshoot issues"
+    - "Performance: Allocate sufficient resources (CPU/memory) through CasaOS settings for optimal performance"
+    - "Integration: Explore integrations with other CasaOS apps to enhance functionality"
+    - "Updates: Check for updates regularly through the CasaOS AppStore to get bug fixes and new features"
 
 services:
   n8n:

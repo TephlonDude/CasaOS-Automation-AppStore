@@ -1,4 +1,4 @@
-
+﻿
 
 x-casaos:
   title: "ChartBrew"
@@ -11,6 +11,12 @@ x-casaos:
   homepage: "https://chartbrew.com"
   main: "chartbrew"
   port_map: "4018"
+  tips:
+    - "Backup Data: Regularly back up \/DATA/AppData/chartbrew\ to protect your configuration and data"
+    - "Logs: Monitor application logs via the CasaOS app management UI to troubleshoot issues"
+    - "Performance: Allocate sufficient resources (CPU/memory) through CasaOS settings for optimal performance"
+    - "Integration: Explore integrations with other CasaOS apps to enhance functionality"
+    - "Updates: Check for updates regularly through the CasaOS AppStore to get bug fixes and new features"
 
 services:
   chartbrew:

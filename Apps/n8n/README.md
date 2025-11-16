@@ -1,72 +1,62 @@
 # n8n for CasaOS
 
-![n8n Logo](https://raw.githubusercontent.com/n8n-io/n8n/master/assets/n8n-logo.png)
+Workflow automation platform to connect and automate your apps
 
-n8n (short for **“nodemation”**) is a powerful, open-source workflow automation tool that lets you connect apps, APIs, and services — no coding required. It runs locally on your CasaOS server, giving you full control over your data and automations.
+## 🚀 Features
 
----
+- 400+ integrations with popular services
+- Visual workflow builder
+- Self-hosted workflow execution
+- Scheduling and triggers
+- Error handling and retries
+- Multi-user support
 
-## 🧩 Features
+## 🛠️ Setup on CasaOS
 
-- Visual, drag-and-drop workflow builder  
-- Over **400+ built-in integrations** (databases, APIs, AI tools, webhooks, and more)  
-- Run locally or connect securely to cloud services  
-- Supports custom JavaScript and Python nodes  
-- Built-in triggers, schedulers, and conditional logic  
-- Persistent workflow storage under `/DATA/AppData/n8n`
+**Port Mapping**
+- n8n listens on port \$(System.Collections.Hashtable.MainPort)\ inside the container
+- Mapped to host port \$(System.Collections.Hashtable.MainPort)\ (configurable in compose file)
 
----
+**Persistent Storage**
+- Data is stored at \/DATA/AppData/n8n\ on your CasaOS host
+- Configure via volume mount in \docker-compose.yml\
+- Ensure this directory has sufficient permissions and storage space
 
-## 🛠️ CasaOS Setup
+**Environment Configuration**
 
-| Setting | Value |
-|----------|-------|
-| **Container Port** | `5678` |
-| **Host Port** | `5678` |
-| **Volumes** | `/DATA/AppData/n8n:/home/node/.n8n` |
-| **Image** | `n8nio/n8n:latest` |
-| **Network** | `bridge` |
+- `N8N_BASIC_AUTH_ACTIVE - Enable basic auth (true/false)`
+- `N8N_BASIC_AUTH_USER - Admin username`
+- `N8N_BASIC_AUTH_PASSWORD - Admin password (set a strong value)`
 
-### Environment Variables
+## 🌐 Access & Integration
 
-| Variable | Description | Example |
-|-----------|--------------|----------|
-| `N8N_BASIC_AUTH_ACTIVE` | Enable login auth | `true` |
-| `N8N_BASIC_AUTH_USER` | Username for login | `admin` |
-| `N8N_BASIC_AUTH_PASSWORD` | Password for login | `changeme` |
-| `GENERIC_TIMEZONE` | Set your local timezone | `America/Edmonton` |
+**In CasaOS UI:**
+- Add the application from the Automation AppStore
+- Configure environment variables and ports as needed
+- Start the service; it will begin running and be accessible on the mapped port
 
----
+**For Other Apps:**
+- Other CasaOS services can reference this app using its container name on the internal network
+- Services deployed in the same compose file or network can communicate directly
 
-## 🌐 Accessing n8n
+## 💡 Tips
 
-Once installed, open your browser and visit:
-http://<your-casaos-ip>:5678
-
-For example:
-http://192.168.1.50:5678
-
-Log in using the username and password you defined in your environment variables.
-
----
-
-## 🧠 Tips & Recommendations
-
-- Keep your workflows backed up by copying `/DATA/AppData/n8n` regularly.  
-- Use **Webhook nodes** to integrate with other local services.
-
----
+- **Backup Data:** Regularly back up \/DATA/AppData/n8n\ to protect your configuration and data
+- **Logs:** Monitor application logs via the CasaOS app management UI to troubleshoot issues
+- **Performance:** Allocate sufficient resources (CPU/memory) through CasaOS settings for optimal performance
+- **Integration:** Explore integrations with other CasaOS apps to enhance functionality
+- **Updates:** Check for updates regularly through the CasaOS AppStore to get bug fixes and new features
 
 ## 📚 Resources
 
-- [Official Website](https://n8n.io)  
-- [Documentation](https://docs.n8n.io)  
-- [Community Forum](https://community.n8n.io)  
-- [GitHub Repository](https://github.com/n8n-io/n8n)
+- [https://n8n.io](https://n8n.io)
+- [https://docs.n8n.io](https://docs.n8n.io)
+- [https://github.com/n8n-io/n8n](https://github.com/n8n-io/n8n)
 
 ---
 
-**Maintainer:** Jason McFeetors  
-**Category:** Automation & AI  
-**License:** [Apache 2.0](https://www.apache.org/licenses/LICENSE-2.0)
+**Category:** Applications  
+**Maintainer:** CasaOS Community  
+**License:** See individual app licensing information  
 
+For support, please refer to the official documentation or community forums linked above.

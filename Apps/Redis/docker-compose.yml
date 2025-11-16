@@ -1,4 +1,4 @@
-x-casaos:
+﻿x-casaos:
   title: "Redis"
   description: "In-memory data structure store. High-performance caching and session store."
   icon: "https://selfh.st/icons/Redis.svg"
@@ -9,6 +9,12 @@ x-casaos:
   homepage: "https://redis.io"
   main: "redis"
   port_map: "6379"
+  tips:
+    - "Backup Data: Regularly back up \/DATA/AppData/redis\ to protect your configuration and data"
+    - "Logs: Monitor application logs via the CasaOS app management UI to troubleshoot issues"
+    - "Performance: Allocate sufficient resources (CPU/memory) through CasaOS settings for optimal performance"
+    - "Integration: Explore integrations with other CasaOS apps to enhance functionality"
+    - "Updates: Check for updates regularly through the CasaOS AppStore to get bug fixes and new features"
 
 services:
   redis:

@@ -1,4 +1,4 @@
-x-casaos:
+﻿x-casaos:
   title: "PostgREST"
   description: "Instant REST API from PostgreSQL. Auto-generated API from your database schema."
   icon: "https://selfh.st/icons/postgREST.svg"
@@ -9,6 +9,12 @@ x-casaos:
   homepage: "https://postgrest.org"
   main: "postgrest"
   port_map: "3000"
+  tips:
+    - "Backup Data: Regularly back up \/DATA/AppData/postgrest\ to protect your configuration and data"
+    - "Logs: Monitor application logs via the CasaOS app management UI to troubleshoot issues"
+    - "Performance: Allocate sufficient resources (CPU/memory) through CasaOS settings for optimal performance"
+    - "Integration: Explore integrations with other CasaOS apps to enhance functionality"
+    - "Updates: Check for updates regularly through the CasaOS AppStore to get bug fixes and new features"
 
 services:
   postgrest:

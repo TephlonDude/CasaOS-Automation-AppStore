@@ -1,34 +1,62 @@
 # PostgreSQL for CasaOS
 
-PostgreSQL is an advanced open-source relational database. Powerful SQL database with advanced features and reliability.
+Advanced open-source relational database system
 
-**Features**
-- ACID compliance
-- Complex queries and indexing
-- JSON and full-text search support
+## 🚀 Features
+
+- Full ACID compliance
+- Complex queries and JOINs
+- Full-text search capabilities
+- JSON support
 - Replication and high availability
-- Advanced security and user permissions
-- Extensible with custom functions
+- Powerful built-in functions
 
-**Ports**
-- **Database:** `5432`
+## 🛠️ Setup on CasaOS
 
-**Volumes**
-- `/DATA/AppData/postgres:/var/lib/postgresql/data` - Database files
+**Port Mapping**
+- PostgreSQL listens on port \$(System.Collections.Hashtable.MainPort)\ inside the container
+- Mapped to host port \$(System.Collections.Hashtable.MainPort)\ (configurable in compose file)
 
-**Environment Variables**
-- `POSTGRES_PASSWORD` - Superuser password
-- `POSTGRES_DB` - Default database
-- `POSTGRES_USER` - Superuser username
+**Persistent Storage**
+- Data is stored at \/DATA/AppData/postgresql\ on your CasaOS host
+- Configure via volume mount in \docker-compose.yml\
+- Ensure this directory has sufficient permissions and storage space
 
-**Quick Start**
+**Environment Configuration**
 
-```pwsh
-cp .\Apps\PostgreSQL\.env.sample .\Apps\PostgreSQL\.env
-# Edit .env to set strong passwords
-docker compose -f .\Apps\PostgreSQL\docker-compose.yml up -d
-```
+- `POSTGRES_USER - Database superuser (default: postgres)`
+- `POSTGRES_PASSWORD - Superuser password (set a strong value)`
+- `POSTGRES_DB - Initial database name`
 
-**Resources**
-- [Official Website](https://www.postgresql.org)
-- [Documentation](https://www.postgresql.org/docs/)
+## 🌐 Access & Integration
+
+**In CasaOS UI:**
+- Add the application from the Automation AppStore
+- Configure environment variables and ports as needed
+- Start the service; it will begin running and be accessible on the mapped port
+
+**For Other Apps:**
+- Other CasaOS services can reference this app using its container name on the internal network
+- Services deployed in the same compose file or network can communicate directly
+
+## 💡 Tips
+
+- **Backup Data:** Regularly back up \/DATA/AppData/postgresql\ to protect your configuration and data
+- **Logs:** Monitor application logs via the CasaOS app management UI to troubleshoot issues
+- **Performance:** Allocate sufficient resources (CPU/memory) through CasaOS settings for optimal performance
+- **Integration:** Explore integrations with other CasaOS apps to enhance functionality
+- **Updates:** Check for updates regularly through the CasaOS AppStore to get bug fixes and new features
+
+## 📚 Resources
+
+- [https://www.postgresql.org](https://www.postgresql.org)
+- [https://www.postgresql.org/docs/](https://www.postgresql.org/docs/)
+- [https://hub.docker.com/_/postgres](https://hub.docker.com/_/postgres)
+
+---
+
+**Category:** Applications  
+**Maintainer:** CasaOS Community  
+**License:** See individual app licensing information  
+
+For support, please refer to the official documentation or community forums linked above.

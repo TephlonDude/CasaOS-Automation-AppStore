@@ -1,4 +1,4 @@
-x-casaos:
+﻿x-casaos:
   title: "Uptime Kuma"
   description: "Self-hosted monitoring and status page. Monitor services and display status publicly."
   icon: "https://selfh.st/icons/Uptime%20Kuma.svg"
@@ -9,6 +9,12 @@ x-casaos:
   homepage: "https://uptime.kuma.pet"
   main: "uptime-kuma"
   port_map: "3001"
+  tips:
+    - "Backup Data: Regularly back up \/DATA/AppData/uptime kuma\ to protect your configuration and data"
+    - "Logs: Monitor application logs via the CasaOS app management UI to troubleshoot issues"
+    - "Performance: Allocate sufficient resources (CPU/memory) through CasaOS settings for optimal performance"
+    - "Integration: Explore integrations with other CasaOS apps to enhance functionality"
+    - "Updates: Check for updates regularly through the CasaOS AppStore to get bug fixes and new features"
 
 services:
   uptime-kuma:

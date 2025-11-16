@@ -1,30 +1,62 @@
-# PostgREST for CasaOS
+# postgREST for CasaOS
 
-PostgREST is an auto-generated REST API layer for PostgreSQL. Instantly expose your database as a REST API without writing code.
+Automatically generate RESTful API from PostgreSQL database schema
 
-**Features**
-- Auto-generated REST API from database schema
-- OpenAPI specification support
-- Role-based access control
-- Full-text search and filtering
-- Real-time updates via webhooks
-- Instant scaling
+## 🚀 Features
 
-**Ports**
-- **REST API:** `3000`
+- Automatic REST API from PostgreSQL
+- Real-time subscriptions
+- Row-level security policies
+- Full-text search integration
+- CSV export capability
+- Built-in pagination and filtering
 
-**Volumes**
-- `/DATA/AppData/postgrest-db:/var/lib/postgresql/data` - PostgreSQL data
+## 🛠️ Setup on CasaOS
 
-**Quick Start**
+**Port Mapping**
+- postgREST listens on port \$(System.Collections.Hashtable.MainPort)\ inside the container
+- Mapped to host port \$(System.Collections.Hashtable.MainPort)\ (configurable in compose file)
 
-```pwsh
-cp .\Apps\postgREST\.env.sample .\Apps\postgREST\.env
-docker compose -f .\Apps\postgREST\docker-compose.yml up -d
-```
+**Persistent Storage**
+- Data is stored at \/DATA/AppData/postgrest\ on your CasaOS host
+- Configure via volume mount in \docker-compose.yml\
+- Ensure this directory has sufficient permissions and storage space
 
-Access API at `http://<CASAOS-IP>:3000`
+**Environment Configuration**
 
-**Resources**
-- [Official Website](https://postgrest.org)
-- [Documentation](https://postgrest.org/en/v11/api/)
+- `PGRST_DB_URI - PostgreSQL connection string`
+- `PGRST_DB_ANON_ROLE - Anonymous user role`
+- `PGRST_JWT_SECRET - JWT signing secret`
+
+## 🌐 Access & Integration
+
+**In CasaOS UI:**
+- Add the application from the Automation AppStore
+- Configure environment variables and ports as needed
+- Start the service; it will begin running and be accessible on the mapped port
+
+**For Other Apps:**
+- Other CasaOS services can reference this app using its container name on the internal network
+- Services deployed in the same compose file or network can communicate directly
+
+## 💡 Tips
+
+- **Backup Data:** Regularly back up \/DATA/AppData/postgrest\ to protect your configuration and data
+- **Logs:** Monitor application logs via the CasaOS app management UI to troubleshoot issues
+- **Performance:** Allocate sufficient resources (CPU/memory) through CasaOS settings for optimal performance
+- **Integration:** Explore integrations with other CasaOS apps to enhance functionality
+- **Updates:** Check for updates regularly through the CasaOS AppStore to get bug fixes and new features
+
+## 📚 Resources
+
+- [https://postgrest.org](https://postgrest.org)
+- [https://postgrest.org/en/stable/](https://postgrest.org/en/stable/)
+- [https://github.com/PostgREST/postgrest](https://github.com/PostgREST/postgrest)
+
+---
+
+**Category:** Applications  
+**Maintainer:** CasaOS Community  
+**License:** See individual app licensing information  
+
+For support, please refer to the official documentation or community forums linked above.

@@ -1,96 +1,61 @@
 # ChartBrew for CasaOS
 
-![ChartBrew Logo](https://raw.githubusercontent.com/chartbrew/chartbrew/main/client/public/logo192.png)
+Open-source data visualization and analytics platform
 
-ChartBrew is an open-source data visualization platform that connects to your databases or APIs to build beautiful charts and dashboards in minutes.  
-Self-host it on CasaOS to create real-time insights for your projects, homelab, or business data — all under your control.
+## 🚀 Features
 
----
+- Create interactive charts and dashboards
+- Connect to multiple data sources (SQL, MongoDB, APIs)
+- Real-time data visualization
+- Team collaboration features
+- CSV/JSON data import support
+- Self-hosted analytics solution
 
-## 📊 Features
+## 🛠️ Setup on CasaOS
 
-- Connect to databases (MySQL, PostgreSQL, MongoDB, etc.) and REST APIs  
-- Create interactive dashboards with drag-and-drop charting  
-- Secure user accounts and team sharing  
-- Live data refresh and scheduling  
-- Export or embed charts anywhere  
-- Works perfectly with CasaOS databases like **MySQL**, **PostgreSQL**, or **SQLite**
+**Port Mapping**
+- ChartBrew listens on port \$(System.Collections.Hashtable.MainPort)\ inside the container
+- Mapped to host port \$(System.Collections.Hashtable.MainPort)\ (configurable in compose file)
 
----
+**Persistent Storage**
+- Data is stored at \/DATA/AppData/chartbrew\ on your CasaOS host
+- Configure via volume mount in \docker-compose.yml\
+- Ensure this directory has sufficient permissions and storage space
 
-## 🛠️ CasaOS Setup
+**Environment Configuration**
 
-| Setting | Value |
-|----------|-------|
-| **Container Port** | `4018` |
-| **Host Port** | `4018` |
-| **Volumes** | `/DATA/AppData/chartbrew:/app` |
-| **Image** | `chartbrew/chartbrew:latest` |
-| **Network** | `bridge` |
+- `CHARTBREW_DB_USERNAME - Database username`
+- `CHARTBREW_DB_PASSWORD - Database password (set a strong value)`
 
-### Environment Variables
+## 🌐 Access & Integration
 
-| Variable | Description | Example |
-|-----------|--------------|----------|
-| `CB_DB_TYPE` | Database type (sqlite, mysql, postgres) | `sqlite` |
-| `CB_DB_NAME` | Database name | `chartbrew` |
-| `CB_DB_HOST` | Database host (if external) | `localhost` |
-| `CB_DB_PORT` | Database port | `3306` |
-| `CB_DB_USER` | Database user | `chartbrew` |
-| `CB_DB_PASS` | Database password | `password` |
-| `CB_SQLITE_FILENAME` | Path for SQLite (default CasaOS) | `/app/sqlite/chartbrew.db` |
-| `CB_SECRET` | Session secret | `changeme` |
-| `PORT` | Port for web UI | `4018` |
+**In CasaOS UI:**
+- Add the application from the Automation AppStore
+- Configure environment variables and ports as needed
+- Start the service; it will begin running and be accessible on the mapped port
 
----
+**For Other Apps:**
+- Other CasaOS services can reference this app using its container name on the internal network
+- Services deployed in the same compose file or network can communicate directly
 
-## 🌐 Accessing ChartBrew
+## 💡 Tips
 
-Once the container is running, open your browser and visit:
-http://<your-casaos-ip>:4018
-
-For example:
-http://192.168.1.50:4018
-
-
-The first user to sign up becomes the admin account.
-
----
-
-## 🧠 Tips & Recommendations
-
-- For a simple setup, use **SQLite** (default).  
-  For production dashboards, connect to **MySQL** or **PostgreSQL** for better performance.  
-- Combine with **n8n** to automatically feed ChartBrew dashboards with live automation data.  
-- Use CasaOS backups to persist `/DATA/AppData/chartbrew`.  
- - Ensure the application files are persisted by mounting `/DATA/AppData/chartbrew:/app` in your `docker-compose.yml` so SQLite and uploads survive container restarts.
- - Consider pinning the ChartBrew image version (avoid `latest`) to prevent unexpected upgrades.
- - Consider pinning the ChartBrew image version (avoid `latest`) to prevent unexpected upgrades. This repo's compose now pins to `chartbrew/chartbrew:v4.6.0`.
- - You can set values via a `.env` file: copy `.env.sample` to `.env` and update secrets there. For example:
-
-   ```pwsh
-   cp .env.sample .env
-   # then edit .env to set strong values for CB_ENCRYPTION_KEY and CB_SECRET
-   ```
- - If you prefer an alternate runtime config, see `docker-compose.override.yml.sample` for examples (SQLite, reverse-proxy labels, etc.).
- - In production, generate secure keys for `CB_ENCRYPTION_KEY` and `CB_SECRET`. Example:
-
-  ```pwsh
-  node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
-  ```
-- Expose it securely through a reverse proxy if you need external access.
-
----
+- **Backup Data:** Regularly back up \/DATA/AppData/chartbrew\ to protect your configuration and data
+- **Logs:** Monitor application logs via the CasaOS app management UI to troubleshoot issues
+- **Performance:** Allocate sufficient resources (CPU/memory) through CasaOS settings for optimal performance
+- **Integration:** Explore integrations with other CasaOS apps to enhance functionality
+- **Updates:** Check for updates regularly through the CasaOS AppStore to get bug fixes and new features
 
 ## 📚 Resources
 
-- [Official Website](https://chartbrew.com)  
-- [Documentation](https://docs.chartbrew.com)  
-- [GitHub Repository](https://github.com/chartbrew/chartbrew)  
-- [Community Forum](https://community.chartbrew.com)
+- [https://chartbrew.com](https://chartbrew.com)
+- [https://docs.chartbrew.com](https://docs.chartbrew.com)
+- [https://github.com/chartbrew/chartbrew](https://github.com/chartbrew/chartbrew)
 
 ---
 
-**Maintainer:** Jason McFeetors  
-**Category:** Analytics & Dashboards  
-**License:** [MIT](https://opensource.org/licenses/MIT)
+**Category:** Applications  
+**Maintainer:** CasaOS Community  
+**License:** See individual app licensing information  
+
+For support, please refer to the official documentation or community forums linked above.

@@ -1,4 +1,4 @@
-x-casaos:
+﻿x-casaos:
   title: "NocoDB"
   description: "Open-source Airtable alternative. No-code database and collaboration platform."
   icon: "https://selfh.st/icons/NocoDB.svg"
@@ -9,6 +9,12 @@ x-casaos:
   homepage: "https://nocodb.com"
   main: "nocodb"
   port_map: "8080"
+  tips:
+    - "Backup Data: Regularly back up \/DATA/AppData/nocodb\ to protect your configuration and data"
+    - "Logs: Monitor application logs via the CasaOS app management UI to troubleshoot issues"
+    - "Performance: Allocate sufficient resources (CPU/memory) through CasaOS settings for optimal performance"
+    - "Integration: Explore integrations with other CasaOS apps to enhance functionality"
+    - "Updates: Check for updates regularly through the CasaOS AppStore to get bug fixes and new features"
 
 services:
   nocodb:

@@ -1,4 +1,4 @@
-name: mariadb
+﻿name: mariadb
 services:
   mariadb:
     image: linuxserver/mariadb:11.4.5

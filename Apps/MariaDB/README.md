@@ -1,34 +1,63 @@
 # MariaDB for CasaOS
 
-MariaDB is an open-source relational database server. MySQL-compatible alternative with improved performance and features.
+Open-source relational database (MySQL fork) for reliable data storage
 
-**Features**
-- MySQL-compatible SQL queries and tools
-- Reliable ACID compliance
-- InnoDB and other storage engines
-- User authentication and role-based access
-- Backup and recovery support
+## 🚀 Features
 
-**Ports**
-- **Database:** `3306`
+- Full SQL support
+- ACID compliance
+- Replication and clustering
+- Performance optimization
+- Security features
+- Compatible with MySQL
 
-**Volumes**
-- `/DATA/AppData/mariadb:/var/lib/mysql` - Database files and config
+## 🛠️ Setup on CasaOS
 
-**Environment Variables**
-- `MARIADB_ROOT_PASSWORD` - Root password
-- `MARIADB_DATABASE` - Default database name
-- `MARIADB_USER` - Application user
-- `MARIADB_PASSWORD` - Application user password
+**Port Mapping**
+- MariaDB listens on port \$(System.Collections.Hashtable.MainPort)\ inside the container
+- Mapped to host port \$(System.Collections.Hashtable.MainPort)\ (configurable in compose file)
 
-**Quick Start**
+**Persistent Storage**
+- Data is stored at \/DATA/AppData/mariadb\ on your CasaOS host
+- Configure via volume mount in \docker-compose.yml\
+- Ensure this directory has sufficient permissions and storage space
 
-```pwsh
-cp .\Apps\MariaDB\.env.sample .\Apps\MariaDB\.env
-# Edit .env to set strong passwords
-docker compose -f .\Apps\MariaDB\docker-compose.yml up -d
-```
+**Environment Configuration**
 
-**Resources**
-- [Official Website](https://mariadb.org)
-- [Documentation](https://mariadb.com/docs/server/)
+- `MYSQL_ROOT_PASSWORD - Root user password (set a strong value)`
+- `MYSQL_DATABASE - Initial database name`
+- `MYSQL_USER - Application user`
+- `MYSQL_PASSWORD - Application user password`
+
+## 🌐 Access & Integration
+
+**In CasaOS UI:**
+- Add the application from the Automation AppStore
+- Configure environment variables and ports as needed
+- Start the service; it will begin running and be accessible on the mapped port
+
+**For Other Apps:**
+- Other CasaOS services can reference this app using its container name on the internal network
+- Services deployed in the same compose file or network can communicate directly
+
+## 💡 Tips
+
+- **Backup Data:** Regularly back up \/DATA/AppData/mariadb\ to protect your configuration and data
+- **Logs:** Monitor application logs via the CasaOS app management UI to troubleshoot issues
+- **Performance:** Allocate sufficient resources (CPU/memory) through CasaOS settings for optimal performance
+- **Integration:** Explore integrations with other CasaOS apps to enhance functionality
+- **Updates:** Check for updates regularly through the CasaOS AppStore to get bug fixes and new features
+
+## 📚 Resources
+
+- [https://mariadb.org](https://mariadb.org)
+- [https://mariadb.com/kb/en/](https://mariadb.com/kb/en/)
+- [https://hub.docker.com/_/mariadb](https://hub.docker.com/_/mariadb)
+
+---
+
+**Category:** Applications  
+**Maintainer:** CasaOS Community  
+**License:** See individual app licensing information  
+
+For support, please refer to the official documentation or community forums linked above.
